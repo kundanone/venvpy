@@ -13,7 +13,8 @@ class EnvSetup(unittest.TestCase):
         [description]
         """
         # Control cockpit launch
-        self.driver = webdriver.Chrome("Test/drivers/chromedriver.exe")
+        self.driver = webdriver.Remote(desired_capabilities=webdriver.DesiredCapabilities.CHROME, command_executor='http://127.0.0.1:4444/wd/hub')
+        # self.driver = webdriver.Chrome("Test/drivers/chromedriver.exe")
         self.driver.get("https://www.google.co.in/")
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
@@ -22,11 +23,11 @@ class EnvSetup(unittest.TestCase):
         """[summary]
         tearDown method closes all the browser instances and then quit.
         """
-        with allure.step("Close browser"):
+        # with allure.step("Close browser"):
+        if self.driver is not None:
+            self.driver.close()
             if self.driver is not None:
-                self.driver.close()
-                if self.driver is not None:
-                    self.driver.quit()
+                self.driver.quit()
 
 
 
