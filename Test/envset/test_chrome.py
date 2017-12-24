@@ -13,16 +13,8 @@ class EnvSetup(unittest.TestCase):
         setUp contains browser setup attributes.
         [description]
         """
-        if "Test" in str(os.getcwd()):
-            pathchrome = os.path.abspath(os.path.join(os.pardir, 'drivers/chromedriver.exe'))
-            # print(pathchrome)
-        else:
-            pathchrome = os.path.abspath(os.path.join(os.getcwd(), 'Test', 'drivers', 'chromedriver.exe'))
-
-        self.servce = ser.Service(pathchrome)
-        self.servce.start()
-        self.driver = webdriver.Remote(command_executor=self.servce.service_url, desired_capabilities=webdriver.DesiredCapabilities.CHROME)
-        # self.driver = webdriver.Remote(desired_capabilities=webdriver.DesiredCapabilities.CHROME, command_executor='http://127.0.0.1:4444/wd/hub')
+        
+        self.driver = webdriver.Remote(desired_capabilities=webdriver.DesiredCapabilities.CHROME, command_executor='http://127.0.0.1:4444/wd/hub')
         # self.driver = webdriver.Chrome("Test/drivers/chromedriver.exe")
         self.driver.get("https://www.google.co.in/")
         self.driver.implicitly_wait(10)
